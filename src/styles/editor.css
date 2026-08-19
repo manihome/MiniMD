@@ -1,0 +1,294 @@
+/* ========================================
+   MiniMD — 编辑器样式（单栏：透明 textarea + 渲染预览）
+   textarea 和 preview 叠放，CSS 变量确保排版完全一致
+   ======================================== */
+
+/* --- Editor wrapper --- */
+.editor-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* --- Editor layer container --- */
+#editor-layer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* --- Preview layer (z-index: 0) --- */
+#editor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 0;
+  pointer-events: none;
+  margin: 0;
+  padding: var(--setting-padding, 32px);
+  font-family: var(--setting-font-family);
+  font-size: var(--setting-font-size);
+  line-height: var(--setting-line-height);
+  color: var(--setting-text-color);
+  background: var(--setting-editor-bg);
+  max-width: var(--setting-max-width);
+  box-sizing: border-box;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Typography output --- */
+#editor h1 {
+  font-size: var(--setting-h1-size);
+  font-weight: 700;
+  margin: 0.4em 0 0.5em;
+  line-height: 1.3;
+  color: var(--setting-text-color);
+  letter-spacing: -0.02em;
+}
+
+#editor h2 {
+  font-size: var(--setting-h2-size);
+  font-weight: 600;
+  margin: 0.5em 0 0.4em;
+  line-height: 1.35;
+  color: var(--setting-text-color);
+  letter-spacing: -0.01em;
+}
+
+#editor h3 {
+  font-size: var(--setting-h3-size);
+  font-weight: 600;
+  margin: 0.5em 0 0.3em;
+  line-height: 1.4;
+  color: var(--setting-text-color);
+}
+
+#editor h4, #editor h5, #editor h6 {
+  font-size: var(--setting-font-size);
+  font-weight: 600;
+  margin: 0.5em 0 0.3em;
+  line-height: 1.4;
+  color: var(--setting-text-color);
+}
+
+#editor p {
+  margin: 0 0 var(--setting-paragraph-spacing);
+  line-height: var(--setting-line-height);
+}
+
+#editor a {
+  color: var(--setting-link-color);
+  text-decoration: underline;
+  text-decoration-color: rgba(85, 85, 85, 0.3);
+  text-underline-offset: 2px;
+}
+
+#editor a:hover {
+  text-decoration-color: var(--setting-link-color);
+}
+
+#editor strong {
+  font-weight: 600;
+}
+
+#editor em {
+  font-style: italic;
+}
+
+#editor del {
+  text-decoration: line-through;
+  color: var(--text-tertiary);
+}
+
+/* --- Lists --- */
+#editor ul, #editor ol {
+  margin: 0 0 var(--setting-paragraph-spacing);
+  padding-left: 1.5em;
+}
+
+#editor li {
+  margin-bottom: 0.3em;
+  line-height: var(--setting-line-height);
+}
+
+#editor li > ul, #editor li > ol {
+  margin-top: 0.3em;
+  margin-bottom: 0;
+}
+
+/* --- Blockquote --- */
+#editor blockquote {
+  margin: 0 0 var(--setting-paragraph-spacing);
+  padding: 0.5em 0 0.5em 1em;
+  border-left: 3px solid var(--setting-quote-color);
+  color: var(--text-secondary);
+}
+
+#editor blockquote p {
+  margin-bottom: 0.5em;
+}
+
+#editor blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- Code --- */
+#editor code {
+  font-family: var(--setting-font-mono);
+  font-size: 0.9em;
+  background: var(--setting-code-bg);
+  padding: 0.15em 0.4em;
+  border-radius: 2px;
+}
+
+#editor pre {
+  margin: 0 0 var(--setting-paragraph-spacing);
+  padding: 16px;
+  background: var(--setting-code-bg);
+  border-radius: var(--radius);
+  overflow-x: auto;
+}
+
+#editor pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.875em;
+  line-height: 1.5;
+}
+
+/* --- Horizontal rule --- */
+#editor hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.5em 0;
+}
+
+/* --- Images --- */
+#editor img {
+  max-width: 100%;
+  height: auto;
+  margin: 0.5em 0;
+  border-radius: var(--radius);
+}
+
+/* --- Tables --- */
+#editor table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 var(--setting-paragraph-spacing);
+  font-size: 0.9em;
+}
+
+#editor th, #editor td {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+#editor th {
+  font-weight: 600;
+  background: var(--bg-secondary);
+}
+
+#editor tr:nth-child(even) {
+  background: var(--bg-secondary);
+}
+
+/* --- Task lists --- */
+#editor ul.task-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+#editor ul.task-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+#editor ul.task-list li input[type="checkbox"] {
+  margin-top: 0.3em;
+  accent-color: var(--text-primary);
+}
+
+/* --- Source textarea (z-index: 1) --- */
+#md-source {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1;
+  margin: 0;
+  padding: var(--setting-padding, 32px);
+  font-family: var(--setting-font-family);
+  font-size: var(--setting-font-size);
+  line-height: var(--setting-line-height);
+  color: transparent;
+  caret-color: var(--text-primary);
+  background: var(--setting-editor-bg);
+  max-width: var(--setting-max-width);
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  resize: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  letter-spacing: 0;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* 确保 textarea 的排版与预览完全一致 */
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* --- Placeholder --- */
+#md-source::placeholder {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+/* --- Print styles --- */
+@media print {
+  #md-source {
+    display: none !important;
+  }
+
+  #editor {
+    max-width: 100% !important;
+    padding: 0 !important;
+    background: none !important;
+    color: #000 !important;
+    pointer-events: auto !important;
+    min-height: auto !important;
+    position: static !important;
+    overflow: visible !important;
+  }
+
+  #editor pre, #editor blockquote {
+    break-inside: avoid;
+  }
+
+  #editor h1, #editor h2, #editor h3 {
+    break-after: avoid;
+  }
+}
+
+/* --- Responsive: Mobile --- */
+@media (max-width: 768px) {
+  #editor, #md-source {
+    padding: 16px;
+    font-size: 16px;
+  }
+}

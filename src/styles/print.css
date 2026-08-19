@@ -1,0 +1,175 @@
+/* ========================================
+   MiniMD — 打印 / PDF 导出样式
+   ======================================== */
+
+@media print {
+  /* Hide non-content elements */
+  .toolbar,
+  .sidebar,
+  .statusbar,
+  .modal-overlay,
+  .dropdown-menu {
+    display: none !important;
+  }
+
+  /* Hide textarea layer */
+  #md-source {
+    display: none !important;
+  }
+
+  /* Reset layout for printing */
+  html, body {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  #app {
+    display: block !important;
+  }
+
+  .editor-area {
+    margin: 0 !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
+  .editor-wrapper {
+    position: static !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  #editor {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    outline: none !important;
+    background: none !important;
+    color: #000 !important;
+    font-size: 12pt !important;
+    line-height: 1.5 !important;
+    position: static !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+  }
+
+  /* Typography for print */
+  #editor h1 {
+    font-size: 24pt !important;
+    margin: 1em 0 0.5em !important;
+    break-after: avoid !important;
+  }
+
+  #editor h2 {
+    font-size: 18pt !important;
+    margin: 0.8em 0 0.4em !important;
+    break-after: avoid !important;
+  }
+
+  #editor h3 {
+    font-size: 14pt !important;
+    margin: 0.6em 0 0.3em !important;
+    break-after: avoid !important;
+  }
+
+  #editor p {
+    margin-bottom: 0.5em !important;
+    break-inside: avoid !important;
+  }
+
+  #editor a {
+    color: #000 !important;
+    text-decoration: underline !important;
+  }
+
+  /* Links: show URL after link */
+  #editor a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666 !important;
+  }
+
+  #editor a[href^="#"]::after {
+    content: "";
+  }
+
+  /* Code blocks */
+  #editor pre {
+    page-break-inside: avoid !important;
+    padding: 1em !important;
+    border: 1px solid #ddd !important;
+    background: #f9f9f9 !important;
+    font-size: 9pt !important;
+  }
+
+  #editor code {
+    font-size: 0.9em;
+  }
+
+  /* Blockquotes */
+  #editor blockquote {
+    page-break-inside: avoid !important;
+    margin: 0.8em 0 !important;
+    padding: 0.5em 1em !important;
+    border-left: 3px solid #333 !important;
+  }
+
+  /* Images */
+  #editor img {
+    max-width: 100% !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Tables */
+  #editor table {
+    page-break-inside: avoid !important;
+    font-size: 9pt !important;
+  }
+
+  #editor th, #editor td {
+    padding: 4px 8px !important;
+  }
+
+  /* Horizontal rules */
+  #editor hr {
+    border-top: 1px solid #ccc !important;
+    margin: 1em 0 !important;
+  }
+
+  /* Lists */
+  #editor ul, #editor ol {
+    padding-left: 1.5em !important;
+  }
+
+  #editor li {
+    margin-bottom: 0.2em !important;
+  }
+
+  /* Prevent awkward page breaks */
+  #editor h1, #editor h2, #editor h3,
+  #editor h4, #editor h5, #editor h6,
+  #editor pre, #editor blockquote,
+  #editor table, #editor figure {
+    break-inside: avoid !important;
+    break-after: avoid !important;
+  }
+
+  /* Page margins */
+  @page {
+    margin: 2cm;
+    size: A4;
+  }
+
+  /* Suppress webkit print background */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
